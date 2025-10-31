@@ -1,16 +1,17 @@
-/* Palet Warna Pastel */
+/* Definisi Warna */
 :root {
-    --pastel-bg: #F0F5F9;         /* Latar belakang sangat muda */
-    --pastel-container: #FFFFFF;  /* Kotak utama putih bersih */
-    --pastel-primary: #A2D9E8;    /* Biru Muda/Aqua Pastel */
-    --pastel-secondary: #F7CAC9;  /* Pink Pastel */
-    --pastel-text: #333333;       /* Teks gelap */
-    --pastel-accent: #B5EAD7;     /* Hijau Mint Pastel */
+    --dark-blue: #1A5276; /* Biru Tua */
+    --light-blue: #A9CCE3; /* Biru Muda */
+    --accent-blue: #3498DB; /* Biru Aksen/Tombol */
+    --background-light: #F8F9F9; /* Latar belakang */
+    --text-color: #333;
+    --checked-color: #5DADE2; /* Warna tugas yang selesai */
 }
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: var(--pastel-bg);
+    background: var(--light-blue); /* Latar belakang Biru Muda */
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,118 +19,123 @@ body {
     margin: 0;
 }
 
-.container {
-    background-color: var(--pastel-container);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.todo-app {
     width: 90%;
-    max-width: 450px;
-    text-align: center;
-    border: 2px solid var(--pastel-primary);
+    max-width: 540px;
+    background: var(--background-light);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-    color: var(--pastel-text);
-    margin-bottom: 5px;
-}
-
-.rate-info {
-    color: #888;
-    font-style: italic;
-    margin-bottom: 25px;
-}
-
-/* Input Group */
-.input-group, .selector {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--pastel-text);
-}
-
-#inputAmount, #fromCurrency, #toCurrency {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 16px;
-    background-color: #fff;
-    transition: border-color 0.3s;
-}
-
-#inputAmount:focus, #fromCurrency:focus, #toCurrency:focus {
-    border-color: var(--pastel-secondary);
-    outline: none;
-}
-
-/* Currency Selectors & Swap Button */
-.currency-selectors {
+.todo-app h2 {
+    color: var(--dark-blue);
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     margin-bottom: 25px;
 }
 
-.currency-selectors .selector {
-    width: 40%;
-    margin-bottom: 0;
+/* Input dan Tombol */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #EAF2F8; /* Latar input sedikit berbeda */
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
 }
 
-.swap-button {
-    background-color: var(--pastel-accent);
-    color: var(--pastel-text);
+.row input {
+    flex: 1;
     border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.row button {
+    border: none;
+    outline: none;
+    padding: 15px 35px;
+    background: var(--accent-blue); /* Tombol Biru Aksen */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+
+.row button:hover {
+    background: #2874A6; /* Biru sedikit lebih gelap saat hover */
+}
+
+/* Daftar Tugas */
+#list-container {
+    padding: 0;
+}
+
+#list-container li {
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    background: white;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+#list-container li:hover {
+    background: #F4F6F6; /* Sedikit hover effect */
+}
+
+/* Ikon Check (Sebelum Selesai) */
+#list-container li::before {
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
     border-radius: 50%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="%23EAF2F8" stroke="%233498DB"/></svg>');
+    background-size: cover;
+    background-position: center;
+    top: 8px;
+    left: 10px;
+}
+
+/* Tugas Selesai (Checked) */
+#list-container li.checked {
+    color: var(--checked-color);
+    text-decoration: line-through;
+    background: #D6EAF8; /* Latar belakang item yang selesai */
+}
+
+/* Ikon Check (Setelah Selesai) */
+#list-container li.checked::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="%231A5276"/><path fill="none" stroke="%23FFFFFF" stroke-width="3" d="M6 12l4 4 8-8"/></svg>');
+}
+
+/* Tombol Hapus (Ikon Silang) */
+#list-container li span {
+    position: absolute;
+    right: 0;
+    top: 5px;
     width: 40px;
     height: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 0;
+    font-size: 22px;
+    color: var(--dark-blue);
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    transition: background 0.3s;
 }
 
-.swap-button:hover {
-    background-color: #92e8c2; /* Sedikit lebih gelap */
-}
-
-/* Konversi Button */
-.convert-button {
-    width: 100%;
-    padding: 15px;
-    background-color: var(--pastel-primary);
-    color: var(--pastel-text);
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-}
-
-.convert-button:hover {
-    background-color: #84c8d9; /* Sedikit lebih gelap */
-}
-
-/* Hasil */
-h2 {
-    color: var(--pastel-text);
-    margin-top: 30px;
-    font-size: 1.2em;
-}
-
-.result {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: var(--pastel-secondary);
-    padding: 10px;
-    background-color: #FFF0F0;
-    border-radius: 8px;
+#list-container li span:hover {
+    background: var(--light-blue);
+    color: var(--dark-blue);
 }
