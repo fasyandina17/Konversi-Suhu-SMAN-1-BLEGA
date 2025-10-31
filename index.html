@@ -3,24 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Konverter Suhu</title>
+    <title>Konverter Mata Uang Pastel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Konverter Suhu Celcius ke Fahrenheit</h1>
-        
-        <label for="celcius">Masukkan Suhu (°C):</label>
-        <input type="number" id="celcius" placeholder="Contoh: 30">
-        
-        <button onclick="konversiSuhu()">Konversi</button>
-        <button onclick="resetForm()">Reset</button>
+        <h1>Konverter Mata Uang Sederhana</h1>
+        <p class="rate-info">Nilai Tukar Statis: 1 USD ≈ 15,000 IDR</p>
 
-        <h2>Hasil Konversi:</h2>
-        <p id="hasilFahrenheit"></p>
+        <div class="input-group">
+            <label for="inputAmount">Jumlah Uang:</label>
+            <input type="number" id="inputAmount" placeholder="Masukkan jumlah" value="1" min="0">
+        </div>
+
+        <div class="currency-selectors">
+            <div class="selector">
+                <label for="fromCurrency">Dari:</label>
+                <select id="fromCurrency">
+                    <option value="IDR">Rupiah (IDR)</option>
+                    <option value="USD">Dolar AS (USD)</option>
+                </select>
+            </div>
+            
+            <button class="swap-button" onclick="swapCurrencies()">⇅</button>
+            
+            <div class="selector">
+                <label for="toCurrency">Ke:</label>
+                <select id="toCurrency">
+                    <option value="USD">Dolar AS (USD)</option>
+                    <option value="IDR">Rupiah (IDR)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="convert-button" onclick="convertCurrency()">Konversi</button>
         
-        <h2>Cara Kalkulasi:</h2>
-        <p id="kalkulasi"></p>
+        <h2>Hasil Konversi:</h2>
+        <p id="resultAmount" class="result">0.00</p>
     </div>
 
     <script src="script.js"></script>
