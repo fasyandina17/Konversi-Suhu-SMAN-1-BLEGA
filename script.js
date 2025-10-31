@@ -1,56 +1,54 @@
-// Nilai tukar statis (1 USD = 15000 IDR)
-const EXCHANGE_RATE = 15000;
+const inputBox = document.getElementById("input-box");
+const listContainer = document.getElementById("list-container");
+const STORAGE_KEY = 'todoListTasks';
 
-function convertCurrency() {
-    const amount = parseFloat(document.getElementById('inputAmount').value);
-    const from = document.getElementById('fromCurrency').value;
-    const to = document.getElementById('toCurrency').value;
-    const resultElement = document.getElementById('resultAmount');
+// --- FUNGSI UTAMA ---
 
-    // Cek validitas input
-    if (isNaN(amount) || amount <= 0) {
-        resultElement.textContent = "Masukkan jumlah yang valid.";
-        return;
-    }
-
-    let result = 0;
-    let formattedResult = '';
-
-    if (from === 'IDR' && to === 'USD') {
-        // Konversi IDR ke USD: USD = IDR / RATE
-        result = amount / EXCHANGE_RATE;
-        formattedResult = result.toFixed(2) + ' USD';
-    } else if (from === 'USD' && to === 'IDR') {
-        // Konversi USD ke IDR: IDR = USD * RATE
-        result = amount * EXCHANGE_RATE;
-        // Format angka dengan pemisah ribuan (gunakan Intl.NumberFormat)
-        formattedResult = new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0
-        }).format(result);
+function addTask() {
+    if (inputBox.value.trim() === '') {
+        alert("Anda harus menuliskan tugas!");
     } else {
-        // Jika mata uang yang dipilih sama
-        result = amount;
-        formattedResult = amount.toLocaleString('en-US') + ' ' + from;
+        // 1. Membuat elemen tugas baru (li)
+        let li = document.createElement("li");
+        li.innerHTML = inputBox.value;
+        listContainer.appendChild(li);
+
+        // 2. Membuat tombol hapus (span)
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7"; // Kode HTML untuk ikon silang (x)
+        li.appendChild(span);
     }
-
-    // Tampilkan hasil
-    resultElement.textContent = formattedResult;
+    inputBox.value = ""; // Kosongkan input setelah tugas ditambahkan
+    saveData(); // Simpan data ke Local Storage
 }
 
-function swapCurrencies() {
-    const fromSelect = document.getElementById('fromCurrency');
-    const toSelect = document.getElementById('toCurrency');
-    
-    // Tukar nilai (value) dari kedua dropdown
-    const tempValue = fromSelect.value;
-    fromSelect.value = toSelect.value;
-    toSelect.value = tempValue;
+// Menghapus atau Menandai Selesai
+listContainer.addEventListener("click", function(e) {
+    if (e.target.tagName === "LI") {
+        // Menandai/Membatalkan tugas selesai
+        e.target.classList.toggle("checked");
+        saveData();
+    } else if (e.target.tagName === "SPAN") {
+        // Menghapus tugas
+        e.target.parentElement.remove();
+        saveData();
+    }
+}, false);
 
-    // Lakukan konversi ulang setelah pertukaran
-    convertCurrency();
+// --- LOCAL STORAGE ---
+
+function saveData() {
+    // Menyimpan HTML dari listContainer ke Local Storage
+    localStorage.setItem(STORAGE_KEY, listContainer.innerHTML);
 }
 
-// Jalankan konversi saat halaman dimuat untuk menampilkan nilai default
-document.addEventListener('DOMContentLoaded', convertCurrency);
+function showTask() {
+    // Memuat data dari Local Storage saat halaman dibuka
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+        listContainer.innerHTML = savedData;
+    }
+}
+
+// Panggil fungsi saat aplikasi dimuat pertama kali
+showTask();
