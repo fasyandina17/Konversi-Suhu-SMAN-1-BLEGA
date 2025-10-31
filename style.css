@@ -1,141 +1,83 @@
-/* Definisi Warna */
+/* Definisi Warna Romantis */
 :root {
-    --dark-blue: #1A5276; /* Biru Tua */
-    --light-blue: #A9CCE3; /* Biru Muda */
-    --accent-blue: #3498DB; /* Biru Aksen/Tombol */
-    --background-light: #F8F9F9; /* Latar belakang */
-    --text-color: #333;
-    --checked-color: #5DADE2; /* Warna tugas yang selesai */
+    --pink-romantic: #FFC0CB;   /* Pink Pastel */
+    --blue-calm: #B0E0E6;      /* Biru Muda */
+    --dark-text: #4A4A4A;      /* Teks gelap */
+    --box-color: #FFFFFF;      /* Kotak pesan putih */
+    --pink-accent: #FF69B4;    /* Pink cerah untuk aksen */
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background: var(--light-blue); /* Latar belakang Biru Muda */
-    color: var(--text-color);
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, var(--blue-calm) 0%, var(--pink-romantic) 100%);
+    color: var(--dark-text);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-}
-
-.todo-app {
-    width: 90%;
-    max-width: 540px;
-    background: var(--background-light);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.todo-app h2 {
-    color: var(--dark-blue);
-    display: flex;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-/* Input dan Tombol */
-.row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #EAF2F8; /* Latar input sedikit berbeda */
-    border-radius: 30px;
-    padding-left: 20px;
-    margin-bottom: 25px;
-}
-
-.row input {
-    flex: 1;
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: 10px;
-    font-size: 16px;
-    color: var(--text-color);
-}
-
-.row button {
-    border: none;
-    outline: none;
-    padding: 15px 35px;
-    background: var(--accent-blue); /* Tombol Biru Aksen */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 30px;
-    transition: background 0.3s;
-}
-
-.row button:hover {
-    background: #2874A6; /* Biru sedikit lebih gelap saat hover */
-}
-
-/* Daftar Tugas */
-#list-container {
-    padding: 0;
-}
-
-#list-container li {
-    list-style: none;
-    font-size: 17px;
-    padding: 12px 8px 12px 50px;
-    user-select: none;
-    cursor: pointer;
-    position: relative;
-    background: white;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-#list-container li:hover {
-    background: #F4F6F6; /* Sedikit hover effect */
-}
-
-/* Ikon Check (Sebelum Selesai) */
-#list-container li::before {
-    content: '';
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    border-radius: 50%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="%23EAF2F8" stroke="%233498DB"/></svg>');
-    background-size: cover;
-    background-position: center;
-    top: 8px;
-    left: 10px;
-}
-
-/* Tugas Selesai (Checked) */
-#list-container li.checked {
-    color: var(--checked-color);
-    text-decoration: line-through;
-    background: #D6EAF8; /* Latar belakang item yang selesai */
-}
-
-/* Ikon Check (Setelah Selesai) */
-#list-container li.checked::before {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="%231A5276"/><path fill="none" stroke="%23FFFFFF" stroke-width="3" d="M6 12l4 4 8-8"/></svg>');
-}
-
-/* Tombol Hapus (Ikon Silang) */
-#list-container li span {
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-    color: var(--dark-blue);
-    line-height: 40px;
     text-align: center;
-    border-radius: 50%;
-    transition: background 0.3s;
 }
 
-#list-container li span:hover {
-    background: var(--light-blue);
-    color: var(--dark-blue);
+.container {
+    padding: 20px;
+}
+
+.message-box {
+    background: var(--box-color);
+    padding: 50px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* Styling Pesan Awal (clickable) */
+.clickable {
+    cursor: pointer;
+    border: 3px solid var(--pink-accent);
+}
+
+.clickable:hover {
+    transform: scale(1.03);
+    background-color: #FFF0F5; /* Sedikit pink muda saat dihover */
+}
+
+.message-box h1 {
+    font-size: 2.5em;
+    color: var(--pink-accent);
+    margin-bottom: 15px;
+}
+
+/* Pesan Tersembunyi */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* Agar tidak bisa diklik saat tersembunyi */
+    position: absolute; /* Untuk menindih pesan awal dengan transisi */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.message-box p {
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.pink-text {
+    color: var(--pink-accent);
+}
+
+/* Animasi untuk pesan yang muncul */
+.revealed {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+/* Animasi untuk pesan awal yang hilang */
+.fade-out {
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: translateY(-20px) !important;
 }
