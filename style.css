@@ -1,21 +1,63 @@
 body {
-    background-color: #FF9999;
     font-family: Arial, sans-serif;
-    color: #191970;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.kartu-profil {
-  width: 300px
-  margin: 50px auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,01);
-  text-align: center;
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
 }
 
+h1 {
+    color: #333;
+    text-align: center;
+}
 
-.kartu-profil img {
-  width: 150px;
-  border-radius: 50%;
+label, input, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#hasilFahrenheit {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745;
+}
+
+#kalkulasi {
+    white-space: pre-wrap; /* Mempertahankan format baris baru dari JavaScript */
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 4px;
 }
