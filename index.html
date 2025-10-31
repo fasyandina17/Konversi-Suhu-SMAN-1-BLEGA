@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple To-Do List</title>
+    <title>Untuk Mbul Sayang 🩷</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="todo-app">
-        <h2>To-Do List 💙</h2>
-        <div class="row">
-            <input type="text" id="input-box" placeholder="Tambahkan tugas baru...">
-            <button onclick="addTask()">Tambah</button>
+
+    <div class="container">
+        <div id="initial-message" class="message-box clickable" onclick="revealMessage()">
+            <h1>Untuk Mbul Sayang!</h1>
+            <p>Klik di sini untuk melihat pesan spesial...</p>
         </div>
 
-        <ul id="list-container">
-            </ul>
+        <div id="hidden-message" class="message-box hidden">
+            <h1 class="pink-text">Love U Bul 🩷</h1>
+            <p>
+                Terimakasi bikin aku merasa dicintai teruuss, sehat sehat terus sayang! 
+                Aku, disini.. bakal selalu sayaaaanggg sama kamuuuuuu. 
+                Terimakasi atas semua cinta yang kamu kasi ke aku sebagaimanapun bentuknya. 
+                Website special untuk Mbul yang paling special! 🌟 Bilang Love U So Much kalau kamu suka websitenya 🫣
+            </p>
+        </div>
     </div>
 
     <script src="script.js"></script>
