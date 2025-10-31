@@ -4,11 +4,13 @@
     --blue-calm: #B0E0E6;      /* Biru Muda */
     --dark-text: #4A4A4A;      /* Teks gelap */
     --box-color: #FFFFFF;      /* Kotak pesan putih */
-    --pink-accent: #FF69B4;    /* Pink cerah untuk aksen */
+    --pink-accent: #FF69B4;    /* Pink cerah untuk aksen/hati */
+    --blue-accent: #5DADE2;    /* Biru Aksen untuk tombol */
 }
 
 body {
     font-family: 'Georgia', serif;
+    /* Gradien Pink ke Biru Muda */
     background: linear-gradient(135deg, var(--blue-calm) 0%, var(--pink-romantic) 100%);
     color: var(--dark-text);
     display: flex;
@@ -28,19 +30,24 @@ body {
     padding: 50px 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    max-width: 550px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
 }
 
-/* Styling Pesan Awal (clickable) */
+/* Tampilan Awal/Interaksi */
 .clickable {
     cursor: pointer;
     border: 3px solid var(--pink-accent);
 }
 
 .clickable:hover {
-    transform: scale(1.03);
-    background-color: #FFF0F5; /* Sedikit pink muda saat dihover */
+    transform: scale(1.02);
+    background-color: #FFF0F5;
 }
 
 .message-box h1 {
@@ -49,35 +56,47 @@ body {
     margin-bottom: 15px;
 }
 
-/* Pesan Tersembunyi */
-.hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none; /* Agar tidak bisa diklik saat tersembunyi */
-    position: absolute; /* Untuk menindih pesan awal dengan transisi */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .message-box p {
     line-height: 1.6;
     font-size: 1.1em;
+    margin-bottom: 20px;
+    max-width: 90%;
 }
 
-.pink-text {
+/* Styling Input dan Tombol */
+.message-box input[type="text"] {
+    padding: 10px;
+    border: 2px solid var(--blue-accent);
+    border-radius: 8px;
+    font-size: 1em;
+    width: 80%;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.message-box button {
+    padding: 10px 25px;
+    background-color: var(--blue-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.message-box button:hover {
+    background-color: #4A90B2;
+}
+
+/* Styling Pesan Akhir (Special) */
+.final-message h1 {
     color: var(--pink-accent);
+    animation: heartBeat 1.5s infinite; /* Efek detak jantung pada pesan akhir */
 }
 
-/* Animasi untuk pesan yang muncul */
-.revealed {
-    opacity: 1 !important;
-    transform: translate(-50%, -50%) !important;
-}
-
-/* Animasi untuk pesan awal yang hilang */
-.fade-out {
-    opacity: 0 !important;
-    pointer-events: none;
-    transform: translateY(-20px) !important;
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
