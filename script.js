@@ -1,107 +1,97 @@
-const messageArea = document.getElementById('message-area');
-let currentStage = 1;
+// Fungsi untuk memajukan langkah (step)
+function nextStep(stepNumber) {
+    // Sembunyikan semua step
+    document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+    });
 
-// --- FUNGSI TAHAPAN ---
+    // Tampilkan step yang diminta
+    const currentStep = document.getElementById('step' + stepNumber);
+    if (currentStep) {
+        currentStep.classList.add('active');
+    }
 
-function renderStage(stage) {
-    // Kosongkan area pesan dan hapus event listener klik
-    messageArea.innerHTML = '';
-    messageArea.onclick = null;
-    messageArea.classList.remove('clickable');
+    // Aksi Khusus untuk Step 5 (Animasi Final)
+    if (stepNumber === 5) {
+        // Biarkan CSS menjalankan animasi bunga
+        // Setelah animasi bunga selesai, tampilkan teks ucapan.
+        setTimeout(() => {
+            document.querySelector('.birthday-text-container').classList.add('show');
+        }, 300); // Penundaan kecil sebelum class 'show' ditambahkan
+    }
+}
 
-    // Tambahkan efek transisi (optional, untuk reset visual)
-    messageArea.style.opacity = '0';
-    setTimeout(() => {
-        
-        switch (stage) {
-            case 1:
-                // TAHAP 1: Pesan Awal (Memulai)
-                messageArea.innerHTML = `
-                    <h1>Untuk Mbul Sayang!</h1>
-                    <p>Klik di sini untuk memulai...</p>
-                `;
-                messageArea.onclick = () => renderStage(2);
-                messageArea.classList.add('clickable');
-                break;
+// Fungsi untuk menolak akses di Step 1
+function rejectAccess() {
+    alert("Maaf, website ini dibuat khusus untuk Indah Try Cahyani. Anda tidak bisa melanjutkan.");
+    // Opsional: bisa diarahkan ke halaman lain atau refresh
+    // window.location.reload();
+}
 
-            case 2:
-                // TAHAP 2: Pertanyaan 1
-                messageArea.innerHTML = `
-                    <h1 class="pink-text">Seberapa sayang sama akuuuuu????</h1>
-                    <input type="text" id="answer1" placeholder="Tulis di sini, Sayang">
-                    <button onclick="checkAnswer1()">Lanjut</button>
-                `;
-                // Menambahkan event listener Enter pada input
-                document.getElementById('answer1').addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        checkAnswer1();
-                    }
-                });
-                break;
+// --- Logika Step 2 ---
 
-            case 3:
-                // TAHAP 3: Pertanyaan 2
-                messageArea.innerHTML = `
-                    <p>Haaiii mbull, ini salah satu cara aku buat nunjukin segimanaaa aku sayang kamuu, 
-                    kamu mau lanjut halaman selanjutnya? Jawab **'Ya'** pleaseee🥺</p>
-                    <input type="text" id="answer2" placeholder="Jawab di sini (Ya/Tidak)">
-                    <button onclick="checkAnswer2()">Lanjut</button>
-                `;
-                 document.getElementById('answer2').addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        checkAnswer2();
-                    }
-                });
-                break;
+// Mengaktifkan/menonaktifkan input umur
+function toggleAgeInput() {
+    const isBirthday = document.getElementById('isBirthday').value;
+    const ageInputGroup = document.getElementById('ageInputGroup');
+    const nextButton = document.getElementById('next2');
 
-            case 4:
-                // TAHAP 4: Pesan Akhir (Final)
-                messageArea.innerHTML = `
-                    <div class="final-message">
-                        <h1>Love U Bul 🩷</h1>
-                        <p>
-                            Terimakasi bikin aku merasa dicintai teruuss, sehat sehat terus sayang! 
-                            Aku, disini.. bakal selalu sayaaaanggg sama kamuuuuuu. 
-                            Terimakasi atas semua cinta yang kamu kasi ke aku sebagaimanapun bentuknya. 
-                            Website special untuk Mbul yang paling special! 🌟
-                        </p>
-                        <p style="margin-top: 30px; font-weight: bold;">
-                            Bilang love u kalo kamu suka websitenya yaapp (⁠｡⁠•̀⁠ᴗ⁠-⁠)⁠✧
-                        </p>
-                    </div>
-                `;
-                messageArea.classList.remove('clickable'); // Nonaktifkan klik setelah selesai
-                break;
+    if (isBirthday === 'yes') {
+        ageInputGroup.style.display = 'block';
+        nextButton.disabled = !document.getElementById('ageInput').value; // Aktifkan/nonaktifkan tombol berdasarkan input umur
+    } else if (isBirthday === 'no') {
+        ageInputGroup.style.display = 'none';
+        nextButton.disabled = false; // Jika tidak ultah, tetap bisa lanjut
+    } else {
+        ageInputGroup.style.display = 'none';
+        nextButton.disabled = true;
+    }
+}
+
+// Memeriksa dan melanjutkan dari Step 2
+function checkBirthdayAndNext() {
+    const isBirthday = document.getElementById('isBirthday').value;
+    let message = "";
+
+    if (isBirthday === 'yes') {
+        const age = document.getElementById('ageInput').value;
+        if (!age || isNaN(age) || parseInt(age) <= 0) {
+            alert("Tolong masukkan umur yang valid.");
+            return;
         }
-
-        // Tampilkan kembali dengan efek fade-in
-        messageArea.style.opacity = '1'; 
-    }, 500);
-}
-
-// --- FUNGSI VALIDASI ---
-
-function checkAnswer1() {
-    const answer = document.getElementById('answer1').value.trim();
-    if (answer) {
-        // Jika Mbul mengisi apa saja, langsung lanjut ke tahap 3
-        renderStage(3);
+        message = `Wah, Indah sedang ulang tahun ke-${age}! Selamat! 🎉`;
+    } else if (isBirthday === 'no') {
+        message = "Oh, Indah belum ulang tahun hari ini. Semoga di hari-hari biasa ini tetap bahagia! 😊";
     } else {
-        alert("Jangan dikosongin dong, sayanggg... isi seberapa sayang kamu yaa!");
+         alert("Tolong pilih jawaban terlebih dahulu.");
+         return;
+    }
+
+    // Tampilkan pesan konfirmasi sebelum lanjut ke step 3
+    if (confirm(message + "\n\nLanjut ke pertanyaan berikutnya?")) {
+        nextStep(3);
     }
 }
 
-function checkAnswer2() {
-    const answer = document.getElementById('answer2').value.trim().toLowerCase();
-    
-    if (answer === 'ya') {
-        renderStage(4); // Lanjut ke pesan akhir
-    } else {
-        alert("Jawab 'Ya' dong, masa gak mau lanjut ke pesan spesial dariku? Coba lagi yaa! 😊");
-    }
-}
+// --- Logika Step 3 ---
 
-// Panggil fungsi untuk menampilkan Tahap 1 saat halaman dimuat
+// Validasi input di Step 3 secara real-time
 document.addEventListener('DOMContentLoaded', () => {
-    renderStage(1);
+    const creatorNameInput = document.getElementById('creatorName');
+    const descriptionTextarea = document.getElementById('description');
+    const nextButton = document.getElementById('next3');
+
+    // Listener untuk input umur di Step 2
+    const ageInput = document.getElementById('ageInput');
+    ageInput.addEventListener('input', toggleAgeInput);
+
+    // Listener untuk Step 3
+    const checkStep3Inputs = () => {
+        const nameValid = creatorNameInput.value.trim().length > 2;
+        const descValid = descriptionTextarea.value.trim().length > 10;
+        nextButton.disabled = !(nameValid && descValid);
+    };
+
+    creatorNameInput.addEventListener('input', checkStep3Inputs);
+    descriptionTextarea.addEventListener('input', checkStep3Inputs);
 });
